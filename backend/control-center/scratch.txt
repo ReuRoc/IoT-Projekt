@@ -1,0 +1,35 @@
+install docker using:
+sudo snap install docker
+
+complete with:
+docker.help
+
+docker image:
+eclipse-mosquitto, runs on port 1883
+
+using mqtt npm package:
+npm install mqtt -g
+listen with:
+mqtt subscribe -h '0.0.0.0' -p '1883' -t 'test/color' -v
+
+interface definition:
+  from client:
+    temperature | float
+    direction | int
+  from server:
+    state | int
+
+directions {
+  0: facing up
+  1: facing down
+  2: facing sideways
+  3: red alert
+  4: kowalski alert
+}
+
+mqtt channels:
+  clients publish to:
+    /devices/ID/temperature/
+    /devices/ID/direction/
+  server publish to:
+    /devices/ID/state/
