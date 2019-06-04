@@ -19,4 +19,7 @@ Danach "Board" auf "ESP32 Dev Module" stellen.
   
   #define LED_COUNT 5 (die Anzahl der verfügbaren LEDs angeben)
 
-
+  Wenn alle Änderungen getätigt wurden, dann wird mit dem "Häckchen" oben links der Code überprüft werden.
+  Mit dem "Pfeil nach Rechts" kann der Code auf den esp32 geladen werden.
+  Hinweis: Sollte der Upload fehlschlagen, dann überprüfen ob unter "Werkzeuge" > "Port": der richtige Port eingestellt ist oder 
+  wenn ein "include" vorhanden ist, ob die Datei auf die richtigen Pfade zugreift.
