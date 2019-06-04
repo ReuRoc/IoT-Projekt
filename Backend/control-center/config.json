@@ -1,0 +1,14 @@
+{
+    "mqtt_broker": "mqtt://0.0.0.0:1883",
+    "mqtt_options": {
+        "clientId": "mqtt_control_center",
+        "username": "",
+        "password": "",
+        "clean": true
+    },
+    "test_colors": [
+        "green",
+        "red",
+        "orange"
+    ]
+}
