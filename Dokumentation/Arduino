@@ -1,0 +1,10 @@
+Anleitung zum Installieren von Arduino IDE und esp32 Packages.
+
+Download des Prorgamms unter https://www.arduino.cc/en/Main/Software oder über den Microsoft-Store.
+Bei der Installation Treiber für USB-Ports zulassen.
+
+Unter "Datei" > "Voreinstellungen" > "Zusätzliche Bordverwalter-URLs": den Link https://dl.espressif.com/dl/package_esp32_index.json einfügen.
+Jetzt können unter "Werkzeuge" > "Board" > "Boardverwalter": esp32 suchen und installieren lassen.
+Danach "Board" auf "ESP32 Dev Module" stellen.
+
+  Libary erstellen
