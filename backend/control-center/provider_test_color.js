@@ -6,8 +6,9 @@ const client = mqtt.connect(
   config.mqtt_broker,
   config.mqtt_options
 );
+console.log('trying to connect to mqtt broker...');
 const publishTestColors = async () => {
-  console.log('starting to publish colors');
+  console.log('publishing a color');
   try {
     await client.publish(
       'test/color/',
@@ -21,8 +22,10 @@ const publishTestColors = async () => {
 }
 
 let sendingMessages = true;
+let maxMessages = 9999;
 const startSendingMessages = () => {
-  for (let i = 0, p = Promise.resolve(); sendingMessages == true; i++) {
+  console.log('successfully connected to mqtt broker!');
+  for (let i = 0, p = Promise.resolve(); i < maxMessages; i++) {
     p = p.then(_ => new Promise(resolve =>
       setTimeout(function () {
         publishTestColors();
