@@ -33,3 +33,5 @@ mqtt channels:
     /devices/ID/direction/
   server publish to:
     /devices/ID/state/
+
+note: alle mqtt channels enden convetions maessig mit einem slash ('/')
