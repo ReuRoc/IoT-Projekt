@@ -5,7 +5,7 @@ $ sudo apt install nodejs
 # Überprüfen der Version von node.js
 $ node -v
 
-Der einfachste weg um node-red zu installieren ist den Paketmanager npm zu nutzen.
+Der einfachste Weg um node-red zu installieren ist den Paketmanager npm zu nutzen.
 # Installation node-red mit npm
 $ sudo npm install -g --unsafe-perm node-red
 

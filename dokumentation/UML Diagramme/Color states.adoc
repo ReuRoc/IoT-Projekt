@@ -1,3 +1,11 @@
+Zulässige Zustände
+------------------
+
+
+.Color states
+[uml,file="Color states"]
+--
+
 @startuml
 
 title Color States
@@ -13,3 +21,4 @@ note left of temperature : 2°C in 60sec
 state "0 tangibles" #FF4646: red flash 3x100ms
 
 @enduml
+--

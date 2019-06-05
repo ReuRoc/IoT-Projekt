@@ -1,9 +1,11 @@
-#System
-Aufbai des Systems stand Tafel 04.06.
+System
+------
+Aufbau des Systems stand Tafel 04.06.
 
-
+.System aufbau
+[uml,file="System aufbau"]
+--
 @startuml
-
 ' Declaration
 
 title System Aufbau
@@ -46,3 +48,5 @@ node "Server"{
 [DB]-->Visualizer
 
 @enduml
+
+--

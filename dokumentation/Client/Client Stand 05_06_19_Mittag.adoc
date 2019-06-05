@@ -1,0 +1,7 @@
+Client Stand 05.06.19
+---------------------
+
+Ein Chip ist mit allen benötigten Sensoren verbunden und erhält von diesen Werten. Desweiteren ist es dem Chip möglich mit dem Wlan zu kommunizieren. 
+
+Aktuelle Aufgabe ist das Zusammenführen der einzelnen Programme, um ein funktionierendes Gesammtsystem auf den Chip zu installieren.
+Desweiteren müssen die Daten noch verarbeitet und aufbrereitet werden. Damit diese sinnvoll an den Server übertragen werden können.
