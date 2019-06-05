@@ -35,3 +35,7 @@ mqtt channels:
     /devices/ID/state/
 
 note: alle mqtt channels enden convetions maessig mit einem slash ('/')
+
+to run the test data provider:
+run pm2 and start the provider_test_color.js
+then run pm2_provider.js, which will restart the pm2_provider eventually
