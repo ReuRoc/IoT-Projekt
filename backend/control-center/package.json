@@ -10,6 +10,7 @@
   "author": "fatalchemist",
   "license": "ISC",
   "devDependencies": {
+    "async-mqtt": "^2.3.0",
     "mqtt": "^3.0.0"
   }
 }
