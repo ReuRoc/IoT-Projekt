@@ -20,7 +20,7 @@ const publishTestColors = async () => {
   }
 }
 
-client.on('connected', publishTestColors);
+client.on('connect', publishTestColors);
 
 
 // function testfunc(){
