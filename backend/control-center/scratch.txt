@@ -10,7 +10,7 @@ eclipse-mosquitto, runs on port 1883
 using mqtt npm package:
 npm install mqtt -g
 listen with:
-mqtt subscribe -h '0.0.0.0' -p '1883' -t 'test/color' -v
+mqtt subscribe -h '0.0.0.0' -p '1883' -t 'test/color/' -v
 
 interface definition:
   from client:

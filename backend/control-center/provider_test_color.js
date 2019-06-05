@@ -11,7 +11,8 @@ const publishTestColors = async () => {
   try {
     await client.publish(
       'test/color/',
-      config.test_colors[getRandomInt(1, config.test_colors.length)]
+      config.test_colors[getRandomInt(0, config.test_colors.length)],
+      config.publishOptions
     );
     await client.end();
   } catch (e) {
@@ -22,10 +23,8 @@ const publishTestColors = async () => {
 
 client.on('connect', publishTestColors);
 
-
-// function testfunc(){
-//     color_test.postColor();
-//     setTimeout(() => {
-//         testfunc()
-//     }, 1000);;
-// }
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
