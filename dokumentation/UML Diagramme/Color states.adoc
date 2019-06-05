@@ -1,0 +1,15 @@
+@startuml
+
+title Color States
+
+state up #B4FB97: green 
+state left #88E4FF : blue
+state down #FFC782 : orange
+state temperature{
+state "this : 5sec" #CC82FF : purple
+state "other : 5sec" #FFFFFF: white
+}
+note left of temperature : 2°C in 60sec
+state "0 tangibles" #FF4646: red flash 3x100ms
+
+@enduml
