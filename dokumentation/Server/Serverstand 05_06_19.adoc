@@ -4,3 +4,5 @@ Serverstand 05.06.19
 Der Ubuntuserver wurde aufgesetzt.
 
 Die Testsysteme mit NodeRED und Prometheus sind ebenfalls aufgesetzt. Es werden Testdaten über das Netzwerk gesendet, die bereits über Prometheus empfangen werden.
+
+Aufgrund großer Probleme mit Prometheus, Docker und Grafana wird nun eine Lösung über NodeRED und das NodeRED-Dashboard gesucht.
