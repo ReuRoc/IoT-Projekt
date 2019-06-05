@@ -1,0 +1,43 @@
+# docker-compose.yml
+version: '3.7'
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
+# define networks
+# default must be defined, see https://github.com/docker/compose/issues/4336
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.10.0.0/16
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.4.2
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.external-url=http://localhost:9090/'
+      - '--storage.tsdb.retention=180d'
+    ports:
+      - 9090:9090
+    restart: always
+
+  grafana:
+    image: grafana/grafana
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+    env_file:
+      - ./grafana/config.monitoring
+    restart: always
