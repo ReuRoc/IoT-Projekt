@@ -1,1 +1,5 @@
 # Kommunikation zwischen esp32 und MQTT Broker
+
+Benötigte Libaries:
+<PubSubClient.h>
+<Wire.h>
