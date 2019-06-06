@@ -1,0 +1,11 @@
+#Anleitung für Docker Installation auf dem Raspberry Pi
+#Folge einfach der offiziellen Docker Installation:
+https://docs.docker.com/install/linux/docker-ce/debian/
+
+#Falls die Installation bei Schritt 4 fehlschlägt, prüfe bitte, dass die richtige Architektur ausgewählt ist.
+#Falls es danach immernoch nicht funktioniert, führe folgenden Befehl aus, um Docker automatisch zu installieren:
+curl -sSL https://get.docker.com | sh
+
+#Überprüfen, on docker erfolgreich installiert wurde:
+docker version
+docker run hello-world

@@ -13,6 +13,7 @@ console.log('trying to connect to mqtt broker...');
 
 const startListening = async () => {
   console.log('starting to listen...');
+  await client.subscribe(listeningTopic, config.pubSubOptions);
 }
 
 client.on('connect', startListening);
@@ -22,12 +23,11 @@ client.on('message', function (topic, message) {
     let currentTopic = topic.substr(listeningTopic.length, topic.length - 1);
     switch (currentTopic) {
       case 'temperature':
-
+        console.log(message.toString());
         break;
       case 'direction':
-
+        console.log(message.toString());
         break;
-
       default:
         break;
     }
