@@ -1,15 +1,15 @@
 # Einfache Kommunikation zwischen esp32 und MQTT Broker
 
-Benötigte Libaries:
-<WiFi.h>
-<PubSubClient.h>
+Benötigte Libaries: +
+<WiFi.h> +
+<PubSubClient.h> +
 <Wire.h>
 
 Nachdem auf einem Server der MQTT Broker eingerichtet wurde, kann der esp zum publishen bzw. subscriben von Daten genutzt werden.
 
-Folgende Daten müssen abgeändert werden:
-ssid = "REPLACE_WITH_YOUR_SSID"
-password = "REPLACE_WITH_YOUR_PASSWORD"
+Folgende Daten müssen abgeändert werden: +
+ssid = "REPLACE_WITH_YOUR_SSID" +
+password = "REPLACE_WITH_YOUR_PASSWORD" +
 mqtt_server = "YOUR_MQTT_BROKER_IP_ADDRESS"
 
 ....
