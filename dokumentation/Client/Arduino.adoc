@@ -8,18 +8,18 @@ Jetzt können unter "Werkzeuge" > "Board" > "Boardverwalter": esp32 suchen und i
 Danach "Board" auf "ESP32 Dev Module" stellen.
 
 
-  Libary erstellen (zum Testen von LEDs):
+Libary erstellen (zum Testen von LEDs):
   
-  Das Repo https://github.com/adafruit/Adafruit_NeoPixel clonen.
-  
-  Unter "Datei" > "Öffnen": den Speicherort des Repos suchen und unter "examples" > "strandtest": die Datei strandtest.ino öffnen.
-  Im Skript folgende Zeilen abändern:
+Das Repo https://github.com/adafruit/Adafruit_NeoPixel clonen.
+ 
+Unter "Datei" > "Öffnen": den Speicherort des Repos suchen und unter "examples" > "strandtest": die Datei strandtest.ino öffnen. +
+Im Skript folgende Zeilen abändern:
   
   #define LED_PIN   2 (zu dem PIN an dem das Datenkabel der LEDs angeschlossen ist)
   
   #define LED_COUNT 5 (die Anzahl der verfügbaren LEDs angeben)
 
-  Wenn alle Änderungen getätigt wurden, dann wird mit dem "Häckchen" oben links der Code überprüft werden.
-  Mit dem "Pfeil nach Rechts" kann der Code auf den esp32 geladen werden.
-  Hinweis: Sollte der Upload fehlschlagen, dann überprüfen ob unter "Werkzeuge" > "Port": der richtige Port eingestellt ist oder 
-  wenn ein "include" vorhanden ist, ob die Datei auf die richtigen Pfade zugreift.
+Wenn alle Änderungen getätigt wurden, dann wird mit dem "Häckchen" oben links der Code überprüft werden. +
+Mit dem "Pfeil nach Rechts" kann der Code auf den esp32 geladen werden. +
+Hinweis: Sollte der Upload fehlschlagen, dann überprüfen ob unter "Werkzeuge" > "Port": der richtige Port eingestellt ist oder +
+wenn ein "include" vorhanden ist, ob die Datei auf die richtigen Pfade zugreift.
