@@ -21,14 +21,14 @@ const char* password = "FI-Labor";
 const char* mqtt_server = "10.43.0.77";
 
 // MQTT channels
-const char* mqtt_dir_chan = "devices/2342/direction";
-const char* mqtt_temp_chan = "devices/2342/temperature";
-const char* mqtt_state_chan = "devices/2342/color";
+const char* mqtt_dir_chan = "devices/0/direction";
+const char* mqtt_temp_chan = "devices/0/temperature";
+const char* mqtt_state_chan = "devices/0/color";
 
-DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
-//DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
-//DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
-//DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
+//DeviceAddress sensor1 = { 0x28, 0xFF, 0x2F, 0x47, 0xA1, 0x16, 0x5, 0x9D };//sensor 1
+DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 }; //sensor 2
+//DeviceAddress sensor1 = { 0x28, 0xFF, 0x24, 0xE, 0xA1, 0x16, 0x3, 0x43 };//sensor 3
+//DeviceAddress sensor1 = { 0x28, 0xFF, 0x2B, 0x17, 0xA1, 0x16, 0x3, 0x87 };//sensor 4
 
 
 // global variables
@@ -275,13 +275,17 @@ void readTemp(void){
  client.publish(mqtt_temp_chan, tempString);
 
 }
+long now=millis();
 void loop() {
+  if(millis()>=now+1000){
   if (!client.connected()) {
     reconnect();
   }
-  client.loop();
+  
   readGyro();
   readTemp();
-  long now = millis();
-  delay(1000);
+  now = millis();
+  }
+  client.loop();
+  
 }
