@@ -25,6 +25,7 @@ directions {
   2: facing sideways
   3: red alert
   4: kowalski alert
+  5: passive kowalski
 }
 
 corresponding
@@ -33,17 +34,18 @@ states {
   1: busy       - orange
   2: break      - blue
   3: alert      - flash red
-  4: k alert    - one purple, others white
+  4: k alert    - purple
+  5: passive k  - white
 }
 
 mqtt channels:
   clients publish to:
-    devices/ID/temperature/
-    devices/ID/direction/
+    devices/ID/temperature
+    devices/ID/direction
   server publish to:
-    devices/ID/state/
+    devices/ID/state
 
-note: alle mqtt channels enden convetions maessig mit einem slash ('/')
+note: alle mqtt channels enden convetions maessig nicht mit einem slash ('/')
 
 to run the test data provider:
 run pm2 and start the provider_test_color.js

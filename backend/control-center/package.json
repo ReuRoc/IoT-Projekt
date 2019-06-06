@@ -1,7 +1,10 @@
 {
   "name": "control-center",
   "version": "1.0.0",
-  "description": "",
+  "description": "IoT project",
+  "repository": {
+    "url": "https://github.com/reuroc/iot-projekt"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
