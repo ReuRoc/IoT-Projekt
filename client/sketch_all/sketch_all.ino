@@ -159,8 +159,21 @@ void callback(char* topic, byte* message, unsigned int length) {
   Serial.print("+++++++++++");
   Serial.println();
   uint32_t myColor = strip.Color(10,10,10);
+
   if(messageTmp == "green"){
     myColor = strip.Color(0,255,0);
+  }
+  if(messageTmp == "blue"){
+    myColor = strip.Color(0,0,255);
+  }
+  if(messageTmp == "red"){
+    myColor = strip.Color(255,0,0);
+  }
+  if(messageTmp == "orange"){
+    myColor = strip.Color(255,83,0);
+  }
+  if(messageTmp == "purple"){
+    myColor =  strip.Color(128,0,128);
   }
   strip.setPixelColor(2,myColor);
   strip.setPixelColor(3,myColor);
