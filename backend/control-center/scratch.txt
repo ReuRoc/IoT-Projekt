@@ -40,12 +40,12 @@ states {
 
 mqtt channels:
   clients publish to:
-    devices/ID/temperature/
-    devices/ID/direction/
+    devices/ID/temperature
+    devices/ID/direction
   server publish to:
-    devices/ID/state/
+    devices/ID/state
 
-note: alle mqtt channels enden convetions maessig mit einem slash ('/')
+note: alle mqtt channels enden convetions maessig nicht mit einem slash ('/')
 
 to run the test data provider:
 run pm2 and start the provider_test_color.js
