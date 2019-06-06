@@ -108,6 +108,37 @@ Beispielsweise UML Deployment-Diagramme mit den Kanälen zu Nachbarsystemen, beg
 
 **<Diagramm oder Tabelle>**
 
+.Schnittstellendefinition - MQTT-Kanäle
+[options="header,footer"]
+|=============================================================
+|Sender|Schnittstelle|gesendete Daten|Typ
+|Client|devices/ID/temperature|Temperatur|Float
+|Client|devices/ID/direction|Orientierungsdaten|INT
+|Server|devices/ID/state|Zustandsdaten|INT
+|=============================================================
+
+
+
+.Direction - mögliche Zustände
+[options="header,footer"]
+|=============================================================
+|Nr.|Zustand
+|0|aufrecht stehend
+|1|auf den Kopf stehend
+|2|auf der Seite liegend
+|=============================================================
+
+.State - mögliche Zustände
+[options="header,footer"]
+|=============================================================
+|Nr.|Zustand|Bedingung|Priorität
+|0|verfügbar - grün|Direction: 0|low
+|1|beschäftigt - orange|Direction: 1|low
+|2|pausierend - blau|Direction: 2|low
+|3|Warnung - weiß blinkend|State: 4 an anderem Tangible|high
+|4|Kowalski-Alarm - violett blinkend|Temperaturabfall 2°C in 60s|highest
+|=============================================================
+
 **<optional: Erläuterung der externen technischen Schnittstellen>**
 
 **<Mapping fachliche auf technische Schnittstellen>**
