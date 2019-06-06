@@ -1,0 +1,22 @@
+Zulässige Zustände
+------------------
+
+
+.Componenten 06_06_19
+[uml,file="Componenten 06_06_19"]
+--
+
+@startuml
+
+title Components - Component Diagram
+package "Hardware" {
+[Thermal Sensor] - [ESP32]
+[Accelerometer] - [ESP32]
+[ESP32] - [Wifi Module]
+}
+[Wifi Module] --> [Mosquitto] : send Sensor Data (MQTT)
+[Mosquitto] -> [Wifi Module] : send State (MQTT)
+[Mosquitto] -> [Control Center] : send Sensor Data (MQTT)
+[Control Center] --> [Mosquitto] : send State (MQTT)
+[Mosquitto] -> [NodeRed] : send State (MQTT)
+@enduml
