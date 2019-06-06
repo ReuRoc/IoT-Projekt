@@ -1,8 +1,5 @@
-MQTT Brokerdaten
------------------
+# Kommunikation zwischen esp32 und MQTT Broker
 
-Alle Daten die über den MQTT Broker laufen abzurufen kann folgender Befehl benutzt werden.
-
-----
-mosquitoo_sub -v -h 10.43.0.77 -t '#'
-----
+Benötigte Libaries:
+<PubSubClient.h>
+<Wire.h>
