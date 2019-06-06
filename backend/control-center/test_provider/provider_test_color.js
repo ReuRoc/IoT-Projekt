@@ -1,7 +1,7 @@
 const util = require('util');
 const mqtt = require('async-mqtt');
 // const color_test = require('./color_test.js');
-const config = require('./config.json');
+const config = require('../config.json');
 const client = mqtt.connect(
   config.mqtt_broker,
   config.mqtt_options
