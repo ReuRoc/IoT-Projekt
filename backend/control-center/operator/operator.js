@@ -16,12 +16,11 @@ let initPM2 = () => {
 }
 
 process.on('message', function (packet) {
-  if (checkForDeviceInMasterList(packet.device)){
-    addPacketToDevice(packet);
-  } else {
+  if(!checkForDeviceInMasterListByID(packet.device)){
     let device = createDeviceData(packet.device);
     addDeviceToMasterList(device);
-  };
+  }
+  addPacketToDeviceQ(packet);
 });
 
 function logicTick() {
@@ -67,7 +66,7 @@ function checkForDeviceInMasterList(device) {
   return checkForDeviceInMasterListByID(device.device.id);
 }
 
-function addPacketToDevice(packet) {
+function addPacketToDeviceQ(packet) {
   deviceMasterList.forEach((entry)=>{
     if(entry.device.id == packet.device){
       entry.Q.push(packet);
