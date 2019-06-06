@@ -3,6 +3,9 @@ const config = require('../config.json');
 
 console.log('starting the operator...');
 
+// list of all the devices we are managing
+let deviceMasterList = new Array();
+
 let initPM2 = () => {
   pm2.connect(function (err) {
     if (err) {
@@ -13,7 +16,9 @@ let initPM2 = () => {
 }
 
 process.on('message', function (packet) {
-  
+  if (checkForDeviceInMasterList(packet.device)){
+    mapPacketOntoDevice(packet);
+  };
 });
 
 function logicTick() {
@@ -32,4 +37,19 @@ function createDeviceData (){
   };
   deviceData.Q = [];
   return deviceData;
+}
+
+function addDeviceToMasterList(deviceID){
+  deviceMasterList.push(deviceID);
+}
+
+function removeDeviceFromMasterList(deviceID) {
+  deviceMasterList.delete(deviceID);
+}
+
+function checkForDeviceInMasterList(deviceID){
+  return deviceMasterList.has(deviceID);
+}
+function mapPacketOntoDevice(packet) {
+  
 }
