@@ -1,3 +1,4 @@
+// based on example code 
 // (c) Michael Schoeffler 2017, http://www.mschoeffler.de
 
 #include "Wire.h" // This library allows you to communicate with I2C devices.
@@ -6,30 +7,49 @@
 #include <DallasTemperature.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
-#//include <Wire.h>
-#ifdef __AVR__
-#include <avr/power.h> // Required for 16 MHz Adafruit Trinket
-#endif
 
 #define LED_PIN  2
 #define LED_COUNT 3
 
+// Data wire for temp sensor is connected to GPIO15
+#define ONE_WIRE_BUS 4
+
+
 const char* ssid = "FI_WLAN";
 const char* password = "FI-Labor";
 
-// Add your MQTT Broker IP address, example:
-//const char* mqtt_server = "192.168.1.144";
+// MQTT Broker IP address
 const char* mqtt_server = "10.43.0.77";
 
+// global variables
 WiFiClient espClient;
 PubSubClient client(espClient);
+Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+// Setup a oneWire instance to communicate with a OneWire device
+OneWire oneWire(ONE_WIRE_BUS);
+// Pass our oneWire reference to Dallas Temperature sensor 
+DallasTemperature sensors(&oneWire);
+//Change Temp Sensor Addresses
+DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
+//DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
+//DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
+//DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
+
+
+
 long lastMsg = 0;
 char msg[50];
-int value = 0;
+OneWire ds(15);
+const int MPU_ADDR = 0x68; // I2C address of the MPU-6050. If AD0 pin is set to HIGH, the I2C address will be 0x69.
+  
+int16_t accelerometer_x, accelerometer_y, accelerometer_z; // variables for accelerometer raw data
+int16_t gyro_x, gyro_y, gyro_z; // variables for gyro raw data
+int16_t temperature; // variables for temperature data
+
+char tmp_str[7]; // temporary variable used in convert function
 
  
 String translateEncryptionType(wifi_auth_mode_t encryptionType) {
- 
   switch (encryptionType) {
     case (WIFI_AUTH_OPEN):
       return "Open";
@@ -46,43 +66,20 @@ String translateEncryptionType(wifi_auth_mode_t encryptionType) {
   }
 }
 
-
-
-Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
-
-OneWire ds(15);
-const int MPU_ADDR = 0x68; // I2C address of the MPU-6050. If AD0 pin is set to HIGH, the I2C address will be 0x69.
-  
-int16_t accelerometer_x, accelerometer_y, accelerometer_z; // variables for accelerometer raw data
-int16_t gyro_x, gyro_y, gyro_z; // variables for gyro raw data
-int16_t temperature; // variables for temperature data
-
-char tmp_str[7]; // temporary variable used in convert function
-
+// helper function
 char* convert_int16_to_str(int16_t i) { // converts int16 to string. Moreover, resulting strings will have the same length in the debug monitor.
   sprintf(tmp_str, "%6d", i);
   return tmp_str;
 }
 
 
-// Data wire is connected to GPIO15
-#define ONE_WIRE_BUS 4
-// Setup a oneWire instance to communicate with a OneWire device
-OneWire oneWire(ONE_WIRE_BUS);
-// Pass our oneWire reference to Dallas Temperature sensor 
-DallasTemperature sensors(&oneWire);
-
-//Change Temp Sensor Addresses
-DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
-
-
 
 void setup() {
-  setup_wifi();
   Serial.begin(112500);
+  setup_wifi();
   initLed();
   initGyro();
-  scanNetworks();
+  scanNetworks(); //scan for wifi networks
   connectToNetwork();
   sensors.begin();
   Serial.println(WiFi.macAddress());
@@ -90,46 +87,40 @@ void setup() {
   
   //WiFi.disconnect(true);
   Serial.println(WiFi.localIP());
-    client.setServer(mqtt_server, 1883);
-  
-  client.setCallback(callback);
-client.subscribe("/test");
+  client.setServer(mqtt_server, 1883);
+  client.setCallback(callback); //callback for MQTT events
+  client.subscribe("/test");
  
 }
 
 void initLed() {
-#if defined(__AVR_ATtiny85__) && (F_CPU == 16000000)
-  clock_prescale_set(clock_div_1);
-#endif
-  // END of Trinket-specific code.
-
-  strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
-            // Turn OFF all pixels ASAP
+  strip.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
+                 // Turn OFF all pixels ASAP
   strip.setBrightness(50);
   strip.setPixelColor(0,strip.Color(255,0,00));
   strip.show();
   strip.setPixelColor(1,strip.Color(0,0,255));
   strip.show();
 }
+
 void setup_wifi() {
-  delay(10);
+  delay(100);
   // We start by connecting to a WiFi network
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
-
   WiFi.begin(ssid, password);
-
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
-
   Serial.println("");
   Serial.println("WiFi connected");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
 }
+
+
 void initGyro() {
   Wire.begin();
   Wire.beginTransmission(MPU_ADDR); // Begins a transmission to the I2C slave (GY-521 board)
@@ -241,42 +232,35 @@ void readGyro()
   gyro_z = Wire.read()<<8 | Wire.read(); // reading registers: 0x47 (GYRO_ZOUT_H) and 0x48 (GYRO_ZOUT_L)
   
   // print out data
-  Serial.print("aX = "); Serial.print(convert_int16_to_str(accelerometer_x));
-  Serial.print(" | aY = "); Serial.print(convert_int16_to_str(accelerometer_y));
-  Serial.print(" | aZ = "); Serial.print(convert_int16_to_str(accelerometer_z));
+ // Serial.print("aX = "); Serial.print(convert_int16_to_str(accelerometer_x));
+  //Serial.print(" | aY = "); Serial.print(convert_int16_to_str(accelerometer_y));
+  Serial.print(" Gyro Z-Axis = "); Serial.print(convert_int16_to_str(accelerometer_z));
   // the following equation was taken from the documentation [MPU-6000/MPU-6050 Register Map and Description, p.30]
-  Serial.print(" | tmp = "); Serial.print(temperature/340.00+36.53);
-  Serial.print(" | gX = "); Serial.print(convert_int16_to_str(gyro_x));
-  Serial.print(" | gY = "); Serial.print(convert_int16_to_str(gyro_y));
-  Serial.print(" | gZ = "); Serial.print(convert_int16_to_str(gyro_z));
+  //Serial.print(" | tmp = "); Serial.print(temperature/340.00+36.53);
+  //Serial.print(" | gX = "); Serial.print(convert_int16_to_str(gyro_x));
+  //Serial.print(" | gY = "); Serial.print(convert_int16_to_str(gyro_y));
+  //Serial.print(" | gZ = "); Serial.print(convert_int16_to_str(gyro_z));
   Serial.println();
-  
-  // delay
-  delay(1000);
+
+  //TODO: Lage bestimmen
   
 }
+
 void readTemp(void){
-  Serial.print("Requesting temperatures...");
+  //Serial.print("Requesting temperatures...");
   sensors.requestTemperatures(); // Send the command to get temperatures
-  Serial.println("DONE");
-  
+  //Serial.println("DONE");
   Serial.print("Sensor 1(*C): ");
-  Serial.print(sensors.getTempC(sensor1)); 
-  Serial.print(" Sensor 1(*F): ");
-  Serial.println(sensors.getTempF(sensor1)); 
-  
-  delay(2000);
+  Serial.println(sensors.getTempC(sensor1)); 
+
 }
 void loop() {
-  readGyro();
-  readTemp();
   if (!client.connected()) {
     reconnect();
   }
   client.loop();
-
+  readGyro();
+  readTemp();
   long now = millis();
-  if (now - lastMsg > 5000) {
-    lastMsg = now;
-  }    
+  delay(1000);
 }
