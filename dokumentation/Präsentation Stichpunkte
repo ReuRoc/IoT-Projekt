@@ -1,0 +1,71 @@
+Aufgabe
+    • In Callcenter soll Geschäftsleitung den Status der Mitarbeiter an Telefonarbeitsplätzen abrufen und einsehen können 
+    •  „Tangible Interface“ soll an die Telefone angebunden werden
+    • soll mit Hilfe von mehrfarbigen LED, Temperatursensor, Beschleunigungssensor und einen Mikrocontroller mit WLAN umgesetzt
+    • Lage des Tangible gibt Status des Arbeitsplatzes an
+    • LED sollen für jeden Status (sechs verschiedene) eine andere Farbe anzeigen.
+        ◦ Tangible nach oben → grün
+        ◦ Tangible nach unten → orange
+        ◦ Tangible liegend → blau
+        ◦ alle Mitarbeiter im Telefonat, unbesetzt oder in Pause → rot blinkend alle drei Sekunden
+        ◦ wenn Temperatur um 2°C innerhalb von 60sec fällt → betroffener → violett 									→ andere → weiß
+[ Color State Diagramm ]
+    • Dokumentation der vollständigen Arbeitsweisen, Vorgänge und genutzten Mitteln
+Lernziele
+    • gemeinsames Arbeiten im Team
+    • Probleme erkennen und Lösungswege finden
+    • Gesamtprojekte eigenständig in Teilaufgaben aufteilen und diese sinnvoll auf Entwicklungsgruppen verteilen und koordinieren
+Server-, Softwareauswahl (Welcher und Warum)
+    • Server
+        ◦ Debian (Linux)
+            ▪ bereitgestellte Packte der aktuellen Version
+            ▪ stabil
+        ◦ Webserver läuft über eine VM (Virtuelle Maschine)
+              
+    • GitHub
+        ◦ einfache Verwendung
+        ◦ kein großer Aufwand
+        ◦ gleichzeitiges Arbeiten an einen Projekt von mehreren Teilnehmern möglich
+        ◦ grafische Benutzeroberfläche → einfacher
+    • NodeRed
+        ◦ einfach, gute Verständlichkeit
+        ◦ zeitsparend
+        ◦ grafische Benutzeroberfläche
+        ◦ vielseitig Verwendbar
+        ◦ vorhandenes Dashboard
+    • Grafana
+        ◦ zu umfangreich
+        ◦ aufwendig
+        ◦ von uns durch NodeRed abgelöst
+    • NodeJS
+        ◦ baut auf NodeRed auf
+        ◦ MQTT → für Broker
+        ◦ PM2 → Prozesse managen
+        ◦ eingeschriebene Programme starten und überwachen
+    • Docker
+        ◦ zum Start für Mosquitto
+        ◦ einfacher Start ohne Konfiguration
+        ◦ zeitsparender
+    • Mosquitto
+        ◦ lange Nutzung → stabil
+        ◦ gute Dokumentation
+    • ASCII-Doc
+        ◦ gut formatierbar in viele Verschiedene Formate
+        ◦ akzeptiert viele Schreibformate
+Hardware Einsatz
+    • ESP32 (Mikrocontroller)
+    • Temperatursensor
+    • Beschleunigungssensor
+    • ThinkPads mit Ubuntu
+    • Wi-Fi Modul
+    • LED
+Dashboard
+    • NodeRed Dashboard
+        ◦ Große Auswahl an Funktionen
+        ◦ Drag and Drop → einfache Verständlichkeit und Nutzung
+    • Darstellung und Auswertung der Sensordaten
+        ◦ Gerät (Welcher Arbeitsplatz)
+        ◦ Temperatur
+        ◦ LED-Farbe
+        ◦ Ausrichtung
+Backend
