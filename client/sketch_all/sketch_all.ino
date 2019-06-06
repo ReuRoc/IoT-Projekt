@@ -275,13 +275,17 @@ void readTemp(void){
  client.publish(mqtt_temp_chan, tempString);
 
 }
+long now=millis();
 void loop() {
+  if(millis()>=now+1000){
   if (!client.connected()) {
     reconnect();
   }
-  client.loop();
+  
   readGyro();
   readTemp();
-  long now = millis();
-  delay(1000);
+  now = millis();
+  }
+  client.loop();
+  
 }
