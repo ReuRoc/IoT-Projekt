@@ -1,16 +1,16 @@
 {
     "mqtt_broker": "mqtt://10.43.0.77:1883",
-    "mqtt_topic_main": "devices/",
-    "mqtt_topic_temp": "temperature/",
-    "mqtt_topic_dire": "direction/",
-    "mqtt_topic_stat": "state/",
+    "mqtt_topic_main": "devices",
+    "mqtt_topic_temp": "temperature",
+    "mqtt_topic_dire": "direction",
+    "mqtt_topic_stat": "state",
     "mqtt_options": {
         "clientId": "mqtt_control_center",
         "username": "",
         "password": "",
         "clean": true
     },
-    "publishOptions": {
+    "pubSubOptions": {
         "qos": 2
     },
     "test_colors": [
