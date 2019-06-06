@@ -27,6 +27,15 @@ directions {
   4: kowalski alert
 }
 
+corresponding
+states {
+  0: available  - green
+  1: busy       - orange
+  2: break      - blue
+  3: alert      - flash red
+  4: k alert    - one purple, others white
+}
+
 mqtt channels:
   clients publish to:
     devices/ID/temperature/
