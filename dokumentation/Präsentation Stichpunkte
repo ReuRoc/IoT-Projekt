@@ -9,12 +9,19 @@ Aufgabe
         ◦ Tangible liegend → blau
         ◦ alle Mitarbeiter im Telefonat, unbesetzt oder in Pause → rot blinkend alle drei Sekunden
         ◦ wenn Temperatur um 2°C innerhalb von 60sec fällt → betroffener → violett 									→ andere → weiß
+
 [ Color State Diagramm ]
+
+
     • Dokumentation der vollständigen Arbeitsweisen, Vorgänge und genutzten Mitteln
+    
+    
 Lernziele
     • gemeinsames Arbeiten im Team
     • Probleme erkennen und Lösungswege finden
     • Gesamtprojekte eigenständig in Teilaufgaben aufteilen und diese sinnvoll auf Entwicklungsgruppen verteilen und koordinieren
+    
+    
 Server-, Softwareauswahl (Welcher und Warum)
     • Server
         ◦ Debian (Linux)
@@ -52,6 +59,8 @@ Server-, Softwareauswahl (Welcher und Warum)
     • ASCII-Doc
         ◦ gut formatierbar in viele Verschiedene Formate
         ◦ akzeptiert viele Schreibformate
+        
+        
 Hardware Einsatz
     • ESP32 (Mikrocontroller)
     • Temperatursensor
@@ -59,6 +68,7 @@ Hardware Einsatz
     • ThinkPads mit Ubuntu
     • Wi-Fi Modul
     • LED
+    
 Dashboard
     • NodeRed Dashboard
         ◦ Große Auswahl an Funktionen
