@@ -12,5 +12,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD ["pm2-runtime", "test_provider/provider_test_color.js"]
-
+ENTRYPOINT /home/dietpi/git/iot-projekt/backend/control-center/start.sh
