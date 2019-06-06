@@ -28,7 +28,7 @@ process.on('message', function (packet) {
 });
 
 function logicTick() {
-  updateAllDeviceStatuses();
+  updateAllDeviceProperties();
 }
 
 setInterval(logicTick, 500);
@@ -88,12 +88,14 @@ function addPacketToDeviceQ(packet) {
 
 // applies the latest item of the queue of a device to its
 // respective properties
-function updateAllDeviceStatuses() {
+function updateAllDeviceProperties() {
   deviceMasterList.forEach((device) => {
     filterDevicePacketQ(device);
   });
 }
 
+// searches for the two latest entries for a given device,
+// regarding its temperature and its direction
 function filterDevicePacketQ(device) {
   let mostRecentTemperatureEntry;
   let mostRecentDirectionEntry;
@@ -113,5 +115,16 @@ function filterDevicePacketQ(device) {
       foundBothEntries = true;
     }
   }
-  applyDevicePackets(device, mostRecentTemperatureEntry. mostRecentDirectionEntry);
+  let updatedDevice = applyDevicePackets(device, mostRecentTemperatureEntry. mostRecentDirectionEntry);
+  // TODO: use a direct reference instead of two separate objects
+  removeDeviceFromMasterList(device);
+  addDeviceToMasterList(updatedDevice);
+}
+
+// creates an updated device object, by applying the values of two
+// given packets, for temperature and direction respectively
+function applyDevicePackets(device, packet_temp, packet_dire) {
+  device.device.temperature_value = packet_temp.value;
+  device.device.direction_value = packet_dire.value;
+  return device;
 }
