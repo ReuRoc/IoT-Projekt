@@ -3,33 +3,28 @@
 
 [role="arc42help"]
 ****
-Beschreibt die wesentlichen Anforderungen und treibenden Kräfte, die bei der Umsetzung der Softwarearchitektur und Entwicklung des Systems berücksichtigt werden müssen.
+Die westenlichen Anforderungen zur Umsetzung des Projektes sind:
 
-Dazu gehören:
-
-* zugrunde liegende Geschäftsziele,
-* wesentliche Aufgabenstellungen und
-* essenzielle fachliche Anforderungen an das System sowie
-* Qualitätsziele für die Architektur und
-* relevante Stakeholder und deren Erwartungshaltung.
+* Zerlegung der Aufgabe in Teilaufgaben
+* Zeitplanung für die Projektumsetzung
+* Wissenserweiterung
+* komplexe Systeme verstehen und konfigurieren
+* Nachvollziehbarkeit durch Erstellung einer Architektdokumentation
+* Zuverlässigkeit
+* Erstellung eines Prototypens
 ****
 
 === Aufgabenstellung
 
 [role="arc42help"]
 ****
-.Inhalt
-Kurzbeschreibung der fachlichen Aufgabenstellung, treibenden Kräfte, Extrakt (oder Abstract) der Anforderungen.
-Verweis auf (hoffentlich vorliegende) Anforderungsdokumente (mit Versionsbezeichnungen und Ablageorten).
-
-.Motivation
-Aus Sicht der späteren Nutzung ist die Unterstützung einer fachlichen Aufgabe oder Verbesserung der Qualität der eigentliche Beweggrund, ein neues System zu schaffen oder ein bestehendes zu modifizieren.
-
-.Form
-Kurze textuelle Beschreibung, eventuell in tabellarischer Use-Case Form.
-Sofern vorhanden, sollte die Aufgabenstellung Verweise auf die entsprechenden Anforderungsdokumente enthalten.
-
-Halten Sie diese Auszüge so knapp wie möglich und wägen Sie Lesbarkeit und Redundanzfreiheit gegeneinander ab.
+In einem einwöchigen Praktikum besteht die Aufgabe darin, in Teamarbeit eine komplexe, 
+informationstechnische Aufgabenstellung zu analysieren, Lösungskonzepte zu entwickeln,diese zu dokumentieren und prototypisch umzusetzen. 
+Dabei sollen die notwendigen Teilaufgaben eigenständig identifiziert werden und über mehrere Entwicklungsgruppen verteilt und 
+koordiniert werden. In diesem Praktikum sollen grundlegende Konzepte und Architekturmerkmale des Internet of Things benannt und
+deren Bedeutung für die Entwicklung eines komplexen IT-Systems dargestellt werden. 
+Hierfür sollen verbreitete Technologien und Projekte für ein eifaches IoT-System ausgewählt werden.
+Dafür sollen Schnittstellen zwischen Systemkomponeten entworfen und umgesetzt werden.
 ****
 
 === Qualitätsziele
@@ -46,31 +41,3 @@ Weil Qualitätsziele grundlegende Architekturentscheidungen oft maßgeblich beei
 .Form
 Tabellarische Darstellung der Qualitätsziele mit möglichst konkreten Szenarien, geordnet nach Prioritäten.
 ****
-
-=== Stakeholder
-
-[role="arc42help"]
-****
-.Inhalt
-Expliziter Überblick über die Stakeholder des Systems – über alle Personen, Rollen oder Organisationen –, die
-
-* die Architektur kennen sollten oder
-* von der Architektur überzeugt werden müssen,
-* mit der Architektur oder dem Code arbeiten (z.B. Schnittstellen nutzen),
-* die Dokumentation der Architektur für ihre eigene Arbeit benötigen,
-* Entscheidungen über das System und dessen Entwicklung treffen.
-
-.Motivation
-Sie sollten die Projektbeteiligten und -betroffenen kennen, sonst erleben Sie später im Entwicklungsprozess Überraschungen.
-Diese Stakeholder bestimmen unter anderem Umfang und Detaillierungsgrad der von Ihnen zu leistenden Arbeit und Ergebnisse.
-
-.Form
-Tabelle mit Rollen- oder Personennamen, sowie deren Erwartungshaltung bezüglich der Architektur und deren Dokumentation.
-****
-
-[cols="1,1,2" options="header"]
-|===
-|Rolle |Kontakt |Erwartungshaltung
-| _<Rolle-1>_ | _<Kontakt-1>_ | _<Erwartung-1>_
-| _<Rolle-2>_ | _<Kontakt-2>_ | _<Erwartung-2>_ 
-|===

@@ -25,6 +25,7 @@ directions {
   2: facing sideways
   3: red alert
   4: kowalski alert
+  5: passive kowalski
 }
 
 corresponding
@@ -33,7 +34,8 @@ states {
   1: busy       - orange
   2: break      - blue
   3: alert      - flash red
-  4: k alert    - one purple, others white
+  4: k alert    - purple
+  5: passive k  - white
 }
 
 mqtt channels:

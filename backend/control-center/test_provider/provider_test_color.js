@@ -12,7 +12,7 @@ const publishTestColors = async () => {
   try {
     await client.publish(
       'test/color/',
-      config.test_colors[getRandomInt(0, config.test_colors.length)],
+      config.test_colors[getRandomInt(0, config.test_colors.length - 1)],
       config.publishOptions
     );
   } catch (e) {
