@@ -13,6 +13,10 @@
     "pubSubOptions": {
         "qos": 2
     },
+    "listener_operator":{
+        "type_temp": "temperature",
+        "type_dire": "direction"
+    },
     "test_colors": [
         "green",
         "red",

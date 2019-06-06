@@ -20,7 +20,7 @@ let initPM2 = () => {
 // triggers when a message is being received
 // should only be spoken to by the listeners
 process.on('message', function (packet) {
-  if(!checkForDeviceInMasterListByID(packet.device)){
+  if (!checkForDeviceInMasterListByID(packet.device)) {
     let device = createDeviceData(packet.device);
     addDeviceToMasterList(device);
   }
@@ -34,7 +34,7 @@ function logicTick() {
 setInterval(logicTick, 500);
 
 // creates a device data object
-function createDeviceData (deviceID){
+function createDeviceData(deviceID) {
   let deviceData = {};
   deviceData.device = {
     // the id of the device | int
@@ -50,25 +50,25 @@ function createDeviceData (deviceID){
   return deviceData;
 }
 
-function addDeviceToMasterList(device){
+function addDeviceToMasterList(device) {
   deviceMasterList.push(device);
 }
 
 function removeDeviceFromMasterListByID(deviceID) {
-  deviceMasterList.forEach((entry, currentIndex)=>{
-    if(entry.device.id == deviceID){
+  deviceMasterList.forEach((entry, currentIndex) => {
+    if (entry.device.id == deviceID) {
       deviceMasterList.splice(currentIndex, 1);
       return;
     }
   });
 }
 
-function removeDeviceFromMasterList(device){
+function removeDeviceFromMasterList(device) {
   removeDeviceFromMasterListByID(device.device.id);
 }
 
-function checkForDeviceInMasterListByID(deviceID){
-  return deviceMasterList.find((e)=>{return e == deviceID}) ? true : false;
+function checkForDeviceInMasterListByID(deviceID) {
+  return deviceMasterList.find((e) => { return e == deviceID }) ? true : false;
 }
 
 function checkForDeviceInMasterList(device) {
@@ -78,8 +78,8 @@ function checkForDeviceInMasterList(device) {
 // adds a packet, received by the respective listener
 // to the corresponding devices queue
 function addPacketToDeviceQ(packet) {
-  deviceMasterList.forEach((entry)=>{
-    if(entry.device.id == packet.device){
+  deviceMasterList.forEach((entry) => {
+    if (entry.device.id == packet.device) {
       entry.Q.push(packet);
       return;
     }
@@ -89,5 +89,29 @@ function addPacketToDeviceQ(packet) {
 // applies the latest item of the queue of a device to its
 // respective properties
 function updateAllDeviceStatuses() {
-  
+  deviceMasterList.forEach((device) => {
+    filterDevicePacketQ(device);
+  });
+}
+
+function filterDevicePacketQ(device) {
+  let mostRecentTemperatureEntry;
+  let mostRecentDirectionEntry;
+  let foundBothEntries = false;
+  let qCopy = device.Q;
+  while (!foundBothEntries && !qCopy.length == 0) {
+    let currentEntryOfQ = qCopy.pop();
+    if (currentEntryOfQ.type == config.listener_operator.type_temp) {
+      mostRecentTemperatureEntry = currentEntryOfQ;
+    } else if (currentEntryOfQ.type == config.listener_operator.type_dire) {
+      mostRecentDirectionEntry = currentEntryOfQ;
+    } else {
+      // TODO: error handling
+      // unknown packet type
+    }
+    if(mostRecentTemperatureEntry && mostRecentDirectionEntry){
+      foundBothEntries = true;
+    }
+  }
+  applyDevicePackets(device, mostRecentTemperatureEntry. mostRecentDirectionEntry);
 }
