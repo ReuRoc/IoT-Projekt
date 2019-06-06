@@ -7,7 +7,7 @@ const client = mqtt.connect(
 );
 
 let listeningID = process.argv[3];
-let listeningTopic = `${config.mqtt_topic_main}${listeningID}/#/`;
+let listeningTopic = `${config.mqtt_topic_main}/${listeningID}/#/`;
 
 console.log('trying to connect to mqtt broker...');
 
@@ -24,9 +24,11 @@ client.on('message', function (topic, message) {
     switch (currentTopic) {
       case 'temperature':
         console.log(message.toString());
+        // send to operator
         break;
       case 'direction':
         console.log(message.toString());
+        // send to operator
         break;
       default:
         break;
