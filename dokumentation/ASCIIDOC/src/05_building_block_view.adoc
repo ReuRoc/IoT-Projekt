@@ -139,36 +139,27 @@ _<Blackbox-Template>_
 
 [role="arc42help"]
 ****
-Beschreiben Sie die <Blackbox 1> anhand des folgenden Blackbox-Templates:
+Beschreibung des esp32 anhand der folgenden Blackbox-Punkte:
 
-* Zweck/Verantwortung
-* Schnittstelle(n), sofern diese nicht als eigenständige Beschreibungen herausgezogen sind.
-Hierzu gehören eventuell auch Qualitäts- und Leistungsmerkmale dieser Schnittstelle.
-* (Optional) Qualitäts-/Leistungsmerkmale der Blackbox, beispielsweise Verfügbarkeit, Laufzeitverhalten o. Ä.
-* (Optional) Ablageort/Datei(en)
-* (Optional) Erfüllte Anforderungen, falls Sie Traceability zu Anforderungen benötigen.
-* (Optional) Offene Punkte/Probleme/Risiken
-****
+_<Zweck/Verantwortung>_ +
+Ist die Komponente zum Ansteueren der LEDs, Wärmesensoren, Beschleunigungssensoren, etc. +
 
-_<Zweck/Verantwortung>_
-Ist die Komponente zum Ansteueren der LEDs, Wärmesensoren, Beschleunigungssensoren, etc.
-
-_<Schnittstelle(n)>_
-* I2c = Ansteuerung für Beschleunigungssensor
-* onewire = Ansteuerung für Wärmesensor
+_<Schnittstelle(n)>_ +
+* I2c = Ansteuerung für Beschleunigungssensor +
+* 1-wire = Ansteuerung für Wärmesensor +
 * seriell = Ansteuerung für LEDs
 
-_<(Optional) Qualitäts-/Leistungsmerkmale>_
+==== <MQTT-Broker>
 
-_<(Optional) Ablageort/Datei(en)>_
+Beschreibung des MQTT-Brokers anhand der folgenden Blackbox-Punkte:
 
-_<(Optional) Erfüllte Anforderungen>_
+_<Zweck/Verantwortung>_ +
+Ist die Komponente zum Erfassen der Daten und fungiert als Schnittstelle zwischen Client und Backend.
 
-_<(optional) Offene Punkte/Probleme/Risiken>_
-
-==== <Name Blackbox 2>
-
-_<Blackbox-Template>_
+_<Schnittstelle(n)>_
+* I2c = Ansteuerung für Beschleunigungs
+* 1-wire = Ansteuerung für Wärmesensor
+* seriell = Ansteuerung für LEDs
 
 ==== <Name Blackbox n>
 
@@ -179,7 +170,13 @@ _<Blackbox-Template>_
 
 ...
 
-==== <Name Schnittstelle m>
+==== <MQTT-Broker>
+
+Beschreibung des MQTT-Brokers anhand der folgenden Blackbox-Punkte:
+
+_<Zweck/Verantwortung>_ +
+Ist die Komponente zum Erfassen der Daten und fungiert als Schnittstelle zwischen Client und Backend.                         
+
 
 === Ebene 2
 
