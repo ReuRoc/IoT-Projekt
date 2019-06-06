@@ -59,5 +59,6 @@ listener -> operator
 {
   device: ${ID},
   type: "descriptive name",
-  value: ${value}
+  value: ${value},
+  timestamp: ${time}
 }

@@ -29,8 +29,11 @@ process.on('message', function (packet) {
 
 function logicTick() {
   updateAllDeviceProperties();
+  manageDeviceStates();
+  cleanupDeviceQ();
 }
 
+// initiate logic loop
 setInterval(logicTick, 500);
 
 // creates a device data object
@@ -127,4 +130,54 @@ function applyDevicePackets(device, packet_temp, packet_dire) {
   device.device.temperature_value = packet_temp.value;
   device.device.direction_value = packet_dire.value;
   return device;
+}
+
+function manageDeviceStates() {
+  deviceMasterList.forEach((entry)=>{
+    updateDeviceState(entry);
+    sendDeviceStateToProvider(entry);
+  });
+}
+
+function updateDeviceState(device) {
+  
+}
+
+// TODO: calculate the difference across all data points within the last
+// minute (only those should still be in the list anyways)
+// currently it just checks the oldest and newest entry and compares those
+function calcTemperatureDifference(device){
+  for (let i = 0; i < device.Q.length; i++) {
+    if (device.Q[i].type == config.listener_operator.type_temp) {
+      let temperature1 = device.Q[i];
+      break;
+    }
+  }
+  for (let i = device.length.Q; i > 0; i--) {
+    if (device.Q[i].type == config.listener_operator.type_temp) {
+      let temperature2 = device.Q[i];
+      break;
+    }
+  }
+  if (temperature1 >= temperature2) {
+    return (temperature1 - temperature2 >= config.listener_operator.alert_threshold ) ? true : false;
+  }
+  if (temperature1 < temperature2) {
+    return (temperature1 - temperature2 >= config.listener_operator.alert_threshold) ? true : false;
+  }
+}
+
+function sendDeviceStateToProvider(device) {
+  
+}
+
+// remove all packets that have exceeded their lifetime
+function cleanupDeviceQ(device) {
+  for (let i = 0; i < device.Q.length; i++) {
+    if(device.Q[device.Q.length-1] - device.Q[0].timestamp  > config.listener_operator.lifetime_in_ms){
+      device.Q.splice(0,1);
+    } else {
+      return;
+    }
+  }
 }

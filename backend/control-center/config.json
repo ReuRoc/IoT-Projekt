@@ -15,7 +15,9 @@
     },
     "listener_operator":{
         "type_temp": "temperature",
-        "type_dire": "direction"
+        "type_dire": "direction",
+        "lifetime_in_ms": "60000",
+        "alert_threshold": "2.0"
     },
     "test_colors": [
         "green",

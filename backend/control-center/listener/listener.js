@@ -35,3 +35,12 @@ client.on('message', function (topic, message) {
     }
   }
 })
+
+// TODO: build packets, timestamp: Date.now()
+function buildPacket(message) {
+  
+}
+
+function sendPacket(packet) {
+  
+}
