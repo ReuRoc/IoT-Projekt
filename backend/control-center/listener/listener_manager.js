@@ -42,8 +42,11 @@ client.on('message', function (topic, message) {
 })
 
 function callForDeviceProcess(deviceID) {
-  checkDeviceID(deviceID);
-  registerDevice(deviceID);
+  if(findDeviceID(deviceID)){
+    registerDevice(deviceID);
+  } else {
+    // congratz, there is nothing for you todo
+  }
 }
 
 function registerDevice(deviceID) {
@@ -56,5 +59,12 @@ function registerDevice(deviceID) {
     if (err) { throw err }
   })
 }
-let checkDeviceID = new Promise({
-});
+function findDeviceID (deviceID){
+  let allIDs = [];
+  pm2.list((e, v) => {
+    v.forEach(el => {
+      allIDs.push(el.pm_id);
+    });
+  });
+  return allIDs.find((e)=>{return e == deviceID}) ? true : false;
+};
