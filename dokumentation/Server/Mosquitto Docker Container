@@ -1,0 +1,32 @@
+#Aufsetzen eines Docker Containers für den MQTT-Broker mit mosquitto
+1. Erstellen eines mosquitto directory
+mkdir /mosquitto
+mkdir /mosquitto/config
+mkdir /mosquitto/data
+mkdir /mosquitto/log
+
+2. Erstellen der mosquitto.conf file
+cd /mosquitto/config
+nano mosquitto.conf
+
+3. Füge folgenden code in die config file ein
+#Config file for mosquitto docker container
+persistence true
+persistence_location /mosquitto/data
+log_dest file /mosquitto/log/mosquitto.log
+
+4. Erstellen des Docker Containers:
+docker run -itd \
+--name="mosquitto" \
+--restart always \
+-p 1883:1883 \
+-p 9001:9001 \
+-v mosquitto.comf:/mosquitto/config/mosquitto.conf \
+eclipse-mosquitto
+
+5. Überprüfen, ob der Docker Container läuft
+docker ps
+
+6. IP-Adresse des MQTT-Brokers herausfinden
+ip a
+#Suche Eintrag docker0 -> kopiere IP-Adresse
