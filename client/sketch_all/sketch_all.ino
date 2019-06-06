@@ -10,7 +10,7 @@
 #include <Adafruit_NeoPixel.h>
 
 #define LED_PIN  2
-#define LED_COUNT 4
+#define LED_COUNT 5
 // Data wire for temp sensor is connected to GPIO15
 #define ONE_WIRE_BUS 4
 
@@ -21,13 +21,13 @@ const char* password = "FI-Labor";
 const char* mqtt_server = "10.43.0.77";
 
 // MQTT channels
-const char* mqtt_dir_chan = "devices/0/direction";
-const char* mqtt_temp_chan = "devices/0/temperature";
-const char* mqtt_state_chan = "devices/0/color";
+const char* mqtt_dir_chan = "devices/23/direction";
+const char* mqtt_temp_chan = "devices/23/temperature";
+const char* mqtt_state_chan = "devices/23/state";
 
 //DeviceAddress sensor1 = { 0x28, 0xFF, 0x2F, 0x47, 0xA1, 0x16, 0x5, 0x9D };//sensor 1
-DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 }; //sensor 2
-//DeviceAddress sensor1 = { 0x28, 0xFF, 0x24, 0xE, 0xA1, 0x16, 0x3, 0x43 };//sensor 3
+//DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 }; //sensor 2
+DeviceAddress sensor1 = { 0x28, 0xFF, 0x24, 0xE, 0xA1, 0x16, 0x3, 0x43 };//sensor 3
 //DeviceAddress sensor1 = { 0x28, 0xFF, 0x2B, 0x17, 0xA1, 0x16, 0x3, 0x87 };//sensor 4
 
 
@@ -259,27 +259,32 @@ void updateLeds(){
   if (tangibledirection == 1) {
      strip.setPixelColor(1,strip.Color(235,10,0)); 
   }
-  uint32_t myColor = strip.Color(10,10,10);
+  uint32_t myColor = strip.Color(1,1,1);
 
-  if(statusColor == "green"){
+  if(statusColor == "0"){
     myColor = strip.Color(0,255,0);
   }
-  if(statusColor == "blue"){
-    myColor = strip.Color(0,0,255);
-  }
-  if(statusColor == "red"){
-    myColor = strip.Color(255,0,0);
-  }
-  if(statusColor == "orange"){
+  if(statusColor == "1"){
     myColor = strip.Color(255,83,0);
   }
-  if(statusColor == "purple"){
+  if(statusColor == "2"){
+    myColor = strip.Color(0,0,255);
+  }
+  if(statusColor == "3"){
+    myColor = strip.Color(255,0,0);
+  }
+  if(statusColor == "4"){
     myColor =  strip.Color(128,0,128);
   }
+  if(statusColor == "5"){
+    myColor =  strip.Color(255,255,255);
+  }
+  
   strip.setPixelColor(0,strip.Color(0,0,0
   ));
   strip.setPixelColor(2,myColor);
   strip.setPixelColor(3,myColor);
+  strip.setPixelColor(4,myColor);
   strip.show();
   
 }
