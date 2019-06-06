@@ -73,7 +73,20 @@ database "MySql" {
 ....
 
 **<Diagramm und/oder Tabelle>**
-
+.Kommunikationswege
+[options="header,footer"]
+|=============================================================
+|Sender|Aktion|Protokoll\Datenformat|Empfanger
+|Nutzer|dreht Tangible|Umwelteinfluss|Accelerometer
+|Accelerometer|sendet Messwerte|I²C\INT|Wifi Modul
+|Thermometer|sendet Messwerte|I²C\FLOAT|Wifi Modul
+|Wifi Modul|sendet Messwerte|MQTT\INT&FLOAT|Mosquitto
+|Mosquitto|sendet Messwerte|MQTT\INT&FLOAT|Control Center
+|Control Center|sendet LED-State|MQTT\INT|Mosquitto
+|Mosquitto|sendet LED-State|MQTT\INT|NodeRed
+|Mosquitto|sendet LED-State|MQTT\INT|Wifi Modul
+|Wifi Modul|sendet LED-State|TCP\INT|LED
+|=============================================================
 **<optional: Erläuterung der externen fachlichen Schnittstellen>**
 
 === Technischer Kontext
