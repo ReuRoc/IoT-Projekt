@@ -9,11 +9,9 @@
 #include <PubSubClient.h>
 
 #define LED_PIN  2
-#define LED_COUNT 3
-
+#define LED_COUNT 4
 // Data wire for temp sensor is connected to GPIO15
 #define ONE_WIRE_BUS 4
-
 
 const char* ssid = "FI_WLAN";
 const char* password = "FI-Labor";
@@ -22,9 +20,14 @@ const char* password = "FI-Labor";
 const char* mqtt_server = "10.43.0.77";
 
 // MQTT channels
-const char* mqtt_dir_chan = "device/2342/direction";
-const char* mqtt_temp_chan = "device/2342/temperature";
-const char* mqtt_led_state = "device/2342/state";
+const char* mqtt_dir_chan = "devices/2342/direction";
+const char* mqtt_temp_chan = "devices/2342/temperature";
+const char* mqtt_state_chan = "devices/2342/state";
+
+DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
+//DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
+//DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
+//DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
 
 
 // global variables
@@ -36,26 +39,19 @@ OneWire oneWire(ONE_WIRE_BUS);
 // Pass our oneWire reference to Dallas Temperature sensor 
 DallasTemperature sensors(&oneWire);
 //Change Temp Sensor Addresses
-DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
-//DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
-//DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
-//DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
-
-
 
 long lastMsg = 0;
 char msg[50];
 OneWire ds(15);
 const int MPU_ADDR = 0x68; // I2C address of the MPU-6050. If AD0 pin is set to HIGH, the I2C address will be 0x69.
-  
+
 int16_t accelerometer_x, accelerometer_y, accelerometer_z; // variables for accelerometer raw data
 int16_t gyro_x, gyro_y, gyro_z; // variables for gyro raw data
 int16_t temperature; // variables for temperature data
 int tangibledirection;
 
-char tmp_str[7]; // temporary variable used in convert function
 
- 
+
 String translateEncryptionType(wifi_auth_mode_t encryptionType) {
   switch (encryptionType) {
     case (WIFI_AUTH_OPEN):
@@ -73,8 +69,10 @@ String translateEncryptionType(wifi_auth_mode_t encryptionType) {
   }
 }
 
+
 // helper function
 char* convert_int16_to_str(int16_t i) { // converts int16 to string. Moreover, resulting strings will have the same length in the debug monitor.
+  char tmp_str[7]; // temporary variable used in convert function
   sprintf(tmp_str, "%6d", i);
   return tmp_str;
 }
@@ -86,17 +84,13 @@ void setup() {
   setup_wifi();
   initLed();
   initGyro();
-  scanNetworks(); //scan for wifi networks
-  connectToNetwork();
+  //scanNetworks(); //scan for wifi networks
   sensors.begin();
   Serial.println(WiFi.macAddress());
   Serial.println(WiFi.localIP());
-  
-  //WiFi.disconnect(true);
-  Serial.println(WiFi.localIP());
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback); //callback for MQTT events
-  client.subscribe("/test");
+  client.subscribe(mqtt_state_chan);
  
 }
 
@@ -104,14 +98,12 @@ void initLed() {
   strip.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
                  // Turn OFF all pixels ASAP
   strip.setBrightness(50);
-  strip.setPixelColor(0,strip.Color(255,0,00));
-  strip.show();
-  strip.setPixelColor(1,strip.Color(0,0,255));
+  //strip.setPixelColor(0,strip.Color(55,55,55));
   strip.show();
 }
 
 void setup_wifi() {
-  delay(500);
+  delay(10);
   // We start by connecting to a WiFi network
   Serial.println();
   Serial.print("Connecting to ");
@@ -126,7 +118,6 @@ void setup_wifi() {
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
 }
-
 
 void initGyro() {
   Wire.begin();
@@ -157,29 +148,12 @@ void callback(char* topic, byte* message, unsigned int length) {
   Serial.print("Message arrived on topic: ");
   Serial.print(topic);
   Serial.print(". Message: ");
-  String messageTemp;
-  client.publish("/test","ich empfange");
   for (int i = 0; i < length; i++) {
     Serial.print((char)message[i]);
-    messageTemp += (char)message[i];
   }
   Serial.println();
 
-  // Feel free to add more if statements to control more GPIOs with MQTT
 
-  // If a message is received on the topic esp32/output, you check if the message is either "on" or "off". 
-  // Changes the output state according to the message
- /* if (String(topic) == "esp32/output") {
-    Serial.print("Changing output to ");
-    if(messageTemp == "on"){
-      Serial.println("on");
-      digitalWrite(ledPin, HIGH);
-    }
-    else if(messageTemp == "off"){
-      Serial.println("off");
-      digitalWrite(ledPin, LOW);
-    }
-  }*/
 }
 
 void scanNetworks() {
@@ -208,17 +182,7 @@ void scanNetworks() {
   }
 }
  
-void connectToNetwork() {
-  WiFi.begin(ssid, password);
- 
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.println("Establishing connection to WiFi..");
-  }
- 
-  Serial.println("Connected to network");
- 
-}
+
 
 
 
@@ -239,26 +203,28 @@ void readGyro()
   gyro_z = Wire.read()<<8 | Wire.read(); // reading registers: 0x47 (GYRO_ZOUT_H) and 0x48 (GYRO_ZOUT_L)
   
   // print out data
- // Serial.print("aX = "); Serial.print(convert_int16_to_str(accelerometer_x));
-  //Serial.print(" | aY = "); Serial.print(convert_int16_to_str(accelerometer_y));
-  Serial.print(" Gyro Z-Axis = "); Serial.print(convert_int16_to_str(accelerometer_z));
-  // the following equation was taken from the documentation [MPU-6000/MPU-6050 Register Map and Description, p.30]
-  //Serial.print(" | tmp = "); Serial.print(temperature/340.00+36.53);
-  //Serial.print(" | gX = "); Serial.print(convert_int16_to_str(gyro_x));
-  //Serial.print(" | gY = "); Serial.print(convert_int16_to_str(gyro_y));
-  //Serial.print(" | gZ = "); Serial.print(convert_int16_to_str(gyro_z));
-  Serial.println();
+  //Serial.print(" Acc Z-Axis = "); Serial.print(convert_int16_to_str(accelerometer_z));
+  //Serial.println();
 
   //TODO: Lage bestimmen
 
-  tangibledirection = 2; //default 
+  tangibledirection = 2; //default liegend
   
   if (accelerometer_z > 5000) {
     tangibledirection = 0;
+    //strip.setPixelColor(0,strip.Color(0,255,0));  
+    strip.setPixelColor(1,strip.Color(0,255,0));  
   }
   if (accelerometer_z < -5000) {
     tangibledirection = 1;
+    //strip.setPixelColor(0,strip.Color(255,0,0));  
+    strip.setPixelColor(1,strip.Color(255,0,0)); 
   }
+  if (tangibledirection == 2) {
+    //strip.setPixelColor(0,strip.Color(0,0,255));  
+    strip.setPixelColor(1,strip.Color(0,0,255));  
+  }
+  strip.show();
 
   char dirString[8];
   dtostrf(tangibledirection, 1, 0, dirString);
