@@ -2,11 +2,12 @@
 // (c) Michael Schoeffler 2017, http://www.mschoeffler.de
 
 #include "Wire.h" // This library allows you to communicate with I2C devices.
-#include <Adafruit_NeoPixel.h>
+
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
+#include <Adafruit_NeoPixel.h>
 
 #define LED_PIN  2
 #define LED_COUNT 4
@@ -22,7 +23,7 @@ const char* mqtt_server = "10.43.0.77";
 // MQTT channels
 const char* mqtt_dir_chan = "devices/2342/direction";
 const char* mqtt_temp_chan = "devices/2342/temperature";
-const char* mqtt_state_chan = "devices/2342/state";
+const char* mqtt_state_chan = "devices/2342/color";
 
 DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
 //DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
@@ -31,9 +32,10 @@ DeviceAddress sensor1 = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 };
 
 
 // global variables
+Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 WiFiClient espClient;
 PubSubClient client(espClient);
-Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+
 // Setup a oneWire instance to communicate with a OneWire device
 OneWire oneWire(ONE_WIRE_BUS);
 // Pass our oneWire reference to Dallas Temperature sensor 
@@ -42,7 +44,7 @@ DallasTemperature sensors(&oneWire);
 
 long lastMsg = 0;
 char msg[50];
-OneWire ds(15);
+
 const int MPU_ADDR = 0x68; // I2C address of the MPU-6050. If AD0 pin is set to HIGH, the I2C address will be 0x69.
 
 int16_t accelerometer_x, accelerometer_y, accelerometer_z; // variables for accelerometer raw data
@@ -134,7 +136,7 @@ void reconnect() {
     if (client.connect("ESP8266Client")) {
       Serial.println("connected");
       // Subscribe
-      client.subscribe("/test");
+      client.subscribe(mqtt_state_chan);
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -148,11 +150,21 @@ void callback(char* topic, byte* message, unsigned int length) {
   Serial.print("Message arrived on topic: ");
   Serial.print(topic);
   Serial.print(". Message: ");
+  String messageTmp;
+  
   for (int i = 0; i < length; i++) {
-    Serial.print((char)message[i]);
+    messageTmp += (char)message[i];
   }
+  Serial.print(messageTmp);
+  Serial.print("+++++++++++");
   Serial.println();
-
+  uint32_t myColor = strip.Color(10,10,10);
+  if(messageTmp == "green"){
+    myColor = strip.Color(0,255,0);
+  }
+  strip.setPixelColor(2,myColor);
+  strip.setPixelColor(3,myColor);
+  strip.show();
 
 }
 
