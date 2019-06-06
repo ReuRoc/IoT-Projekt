@@ -21,3 +21,15 @@ function logicTick() {
 }
 
 setInterval(logicTick, 500);
+
+function createDeviceData (){
+  let deviceData = {};
+  deviceData.device = {
+    id: null,
+    temperature_value: null,
+    direction_value: null,
+    state: null
+  };
+  deviceData.Q = [];
+  return deviceData;
+}

@@ -53,3 +53,11 @@ then run pm2_provider.js, which will restart the pm2_provider eventually
 
 pm2 starts a listener per device
 there is a listener manager that keeps track of them
+
+internal data definitions:
+listener -> operator
+{
+  device: ${ID},
+  type: "descriptive name",
+  value: ${value}
+}
