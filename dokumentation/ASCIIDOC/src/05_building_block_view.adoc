@@ -154,6 +154,9 @@ _<Zweck/Verantwortung>_
 Ist die Komponente zum Ansteueren der LEDs, Wärmesensoren, Beschleunigungssensoren, etc.
 
 _<Schnittstelle(n)>_
+* I2c = Ansteuerung für Beschleunigungssensor
+* onewire = Ansteuerung für Wärmesensor
+* seriell = Ansteuerung für LEDs
 
 _<(Optional) Qualitäts-/Leistungsmerkmale>_
 
