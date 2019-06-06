@@ -21,6 +21,12 @@ const char* password = "FI-Labor";
 // MQTT Broker IP address
 const char* mqtt_server = "10.43.0.77";
 
+// MQTT channels
+const char* mqtt_dir_chan = "device/2342/direction";
+const char* mqtt_temp_chan = "device/2342/temperature";
+const char* mqtt_led_state = "device/2342/state";
+
+
 // global variables
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -45,6 +51,7 @@ const int MPU_ADDR = 0x68; // I2C address of the MPU-6050. If AD0 pin is set to 
 int16_t accelerometer_x, accelerometer_y, accelerometer_z; // variables for accelerometer raw data
 int16_t gyro_x, gyro_y, gyro_z; // variables for gyro raw data
 int16_t temperature; // variables for temperature data
+int tangibledirection;
 
 char tmp_str[7]; // temporary variable used in convert function
 
@@ -104,7 +111,7 @@ void initLed() {
 }
 
 void setup_wifi() {
-  delay(100);
+  delay(500);
   // We start by connecting to a WiFi network
   Serial.println();
   Serial.print("Connecting to ");
@@ -142,7 +149,7 @@ void reconnect() {
       Serial.print(client.state());
       Serial.println(" try again in 5 seconds");
       // Wait 5 seconds before retrying
-      delay(5000);
+      delay(500);
     }
   }
 }
@@ -243,6 +250,23 @@ void readGyro()
   Serial.println();
 
   //TODO: Lage bestimmen
+
+  tangibledirection = 2; //default 
+  
+  if (accelerometer_z > 5000) {
+    tangibledirection = 0;
+  }
+  if (accelerometer_z < -5000) {
+    tangibledirection = 1;
+  }
+
+  char dirString[8];
+  dtostrf(tangibledirection, 1, 0, dirString);
+ Serial.print(" Direction = ");
+ Serial.print(dirString);
+ Serial.println();
+ client.publish(mqtt_dir_chan, dirString);
+
   
 }
 
@@ -252,6 +276,12 @@ void readTemp(void){
   //Serial.println("DONE");
   Serial.print("Sensor 1(*C): ");
   Serial.println(sensors.getTempC(sensor1)); 
+  char tempString[8];
+  dtostrf(sensors.getTempC(sensor1), 1, 2, tempString);
+ Serial.print(" Temp = ");
+ Serial.print(tempString);
+ Serial.println();
+ client.publish(mqtt_temp_chan, tempString);
 
 }
 void loop() {
