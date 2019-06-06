@@ -50,7 +50,8 @@ const int MPU_ADDR = 0x68; // I2C address of the MPU-6050. If AD0 pin is set to 
 int16_t accelerometer_x, accelerometer_y, accelerometer_z; // variables for accelerometer raw data
 int16_t gyro_x, gyro_y, gyro_z; // variables for gyro raw data
 int16_t temperature; // variables for temperature data
-int tangibledirection;
+int tangibledirection = 0;
+String statusColor = "";
 
 
 
@@ -81,26 +82,18 @@ char* convert_int16_to_str(int16_t i) { // converts int16 to string. Moreover, r
 
 
 
-void setup() {
-  Serial.begin(112500);
-  setup_wifi();
-  initLed();
-  initGyro();
-  //scanNetworks(); //scan for wifi networks
-  sensors.begin();
-  Serial.println(WiFi.macAddress());
-  Serial.println(WiFi.localIP());
-  client.setServer(mqtt_server, 1883);
-  client.setCallback(callback); //callback for MQTT events
-  client.subscribe(mqtt_state_chan);
- 
-}
+
 
 void initLed() {
   strip.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
                  // Turn OFF all pixels ASAP
+  strip.show();               
   strip.setBrightness(50);
-  //strip.setPixelColor(0,strip.Color(55,55,55));
+  strip.clear();
+  strip.setPixelColor(0,strip.Color(55,55,55));
+  strip.setPixelColor(1,strip.Color(55,55,55));
+  strip.setPixelColor(2,strip.Color(55,55,55));
+  strip.setPixelColor(3,strip.Color(55,55,55));
   strip.show();
 }
 
@@ -158,26 +151,9 @@ void callback(char* topic, byte* message, unsigned int length) {
   Serial.print(messageTmp);
   Serial.print("+++++++++++");
   Serial.println();
-  uint32_t myColor = strip.Color(10,10,10);
+  statusColor = messageTmp;
+  
 
-  if(messageTmp == "green"){
-    myColor = strip.Color(0,255,0);
-  }
-  if(messageTmp == "blue"){
-    myColor = strip.Color(0,0,255);
-  }
-  if(messageTmp == "red"){
-    myColor = strip.Color(255,0,0);
-  }
-  if(messageTmp == "orange"){
-    myColor = strip.Color(255,83,0);
-  }
-  if(messageTmp == "purple"){
-    myColor =  strip.Color(128,0,128);
-  }
-  strip.setPixelColor(2,myColor);
-  strip.setPixelColor(3,myColor);
-  strip.show();
 
 }
 
@@ -237,19 +213,13 @@ void readGyro()
   
   if (accelerometer_z > 5000) {
     tangibledirection = 0;
-    //strip.setPixelColor(0,strip.Color(0,255,0));  
-    strip.setPixelColor(1,strip.Color(0,255,0));  
+    
   }
   if (accelerometer_z < -5000) {
     tangibledirection = 1;
-    //strip.setPixelColor(0,strip.Color(255,0,0));  
-    strip.setPixelColor(1,strip.Color(255,0,0)); 
+
   }
-  if (tangibledirection == 2) {
-    //strip.setPixelColor(0,strip.Color(0,0,255));  
-    strip.setPixelColor(1,strip.Color(0,0,255));  
-  }
-  strip.show();
+
 
   char dirString[8];
   dtostrf(tangibledirection, 1, 0, dirString);
@@ -276,16 +246,73 @@ void readTemp(void){
 
 }
 long now=millis();
+
+
+void updateLeds(){
+  strip.clear();
+  if (tangibledirection == 2) {
+    strip.setPixelColor(1,strip.Color(0,0,255));  
+  }
+  if (tangibledirection == 0) {
+    strip.setPixelColor(1,strip.Color(0,255,0)); 
+  }
+  if (tangibledirection == 1) {
+     strip.setPixelColor(1,strip.Color(235,10,0)); 
+  }
+  uint32_t myColor = strip.Color(10,10,10);
+
+  if(statusColor == "green"){
+    myColor = strip.Color(0,255,0);
+  }
+  if(statusColor == "blue"){
+    myColor = strip.Color(0,0,255);
+  }
+  if(statusColor == "red"){
+    myColor = strip.Color(255,0,0);
+  }
+  if(statusColor == "orange"){
+    myColor = strip.Color(255,83,0);
+  }
+  if(statusColor == "purple"){
+    myColor =  strip.Color(128,0,128);
+  }
+  strip.setPixelColor(0,strip.Color(0,0,0
+  ));
+  strip.setPixelColor(2,myColor);
+  strip.setPixelColor(3,myColor);
+  strip.show();
+  
+}
+
+
+// ########################################
+void setup() {
+  Serial.begin(112500);
+  setup_wifi();
+  initLed();
+  initGyro();
+  //scanNetworks(); //scan for wifi networks
+  sensors.begin();
+  Serial.println(WiFi.macAddress());
+  Serial.println(WiFi.localIP());
+  client.setServer(mqtt_server, 1883);
+  client.setCallback(callback); //callback for MQTT events
+  client.subscribe(mqtt_state_chan);
+ 
+}
+
+// ########################################
 void loop() {
+  
   if(millis()>=now+1000){
-  if (!client.connected()) {
-    reconnect();
+    updateLeds();
+    now = millis();
+    if (!client.connected()) {
+      reconnect();
+    }
+    readGyro();
+    readTemp();
   }
-  
-  readGyro();
-  readTemp();
-  now = millis();
-  }
-  client.loop();
-  
+    client.loop();
+    delay(10);
 }
