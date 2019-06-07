@@ -31,7 +31,7 @@ Dafür sollen Schnittstellen zwischen Systemkomponeten entworfen und umgesetzt w
 
 [role="arc42help"]
 ****
-.Inhalt
+
 Die Qualitätsziele für das einwöhige Praktikum lauten wie folgt:
 
 * Motivation der Teammitglieder
