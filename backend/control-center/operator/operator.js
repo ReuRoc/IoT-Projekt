@@ -15,11 +15,14 @@ let initPM2 = () => {
       process.exit(2)
     }
   })
+  // start listener manager, give this ID
 }
 
 // triggers when a message is being received
 // should only be spoken to by the listeners
 process.on('message', function (packet) {
+  // i think the following is necessary, TODO: test this
+  let packet = packet.packet;
   if (!checkForDeviceInMasterListByID(packet.device)) {
     let device = createDeviceData(packet.device);
     addDeviceToMasterList(device);
@@ -153,6 +156,7 @@ function updateDeviceState(device) {
     device.device.state = config.state.kowalski_alert;
     triggerKowalksiAlert(device);
   }
+  // TODO: check for red alert
 }
 
 // TODO: calculate the difference across all data points within the last

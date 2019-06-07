@@ -53,6 +53,7 @@ function registerDevice(deviceID) {
   pm2.start({
     script: './listener/listener.js',
     name: `listening2_${deviceID}`,
+    // add operator ID as second param
     args: `${deviceID}`
   }, (err, apps) => {
     pm2.disconnect()
