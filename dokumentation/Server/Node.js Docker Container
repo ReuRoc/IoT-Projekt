@@ -1,0 +1,37 @@
+# Aufsetzen eines Docker Containers für die Node.js Skripte
+1. Erstellen eines Shell Skriptes für das Starten der Node.js Appliaktion
+#Gehe in das Verzeichnis, wo alle Dateien für die Node.js Applikation gespeichert sind
+touch start.sh
+
+#Füge folgende Zeilen hinzu:
+#!/bin/sh
+pm2 start test_provider/provider_test_color.js
+node test_provider/pm2_provider.js
+
+#Mache das Shell Skript ausführbar
+chmod +x start.sh
+
+2.  Erstellen der Docker File
+#Mithilfe der Dockerfile wird das Dockerimage für den Container gebaut
+#Gehe in das Verzeichnis, wo alle Dateien für die Node.js Applikation gespeichert sind
+touch Dockerfile
+
+#Füge die folgenden Zeile hinzu:
+FROM node:8
+WORKDIR <Pfad des Node.js Verzeichnis>
+COPY package*.json ./
+RUN npm install
+RUN npm install pm2 -g
+COPY . .
+EXPOSE 8080
+ENTRYPOINT <Pfad dee Shell Skriptes, welches die Node.js Applikation erstellt>
+
+3. Bauen des Docker Image
+# Führe folgenden Befehl aus:
+docker build -t <ImageName:Version(z.B. latest)> .
+Beispiel:
+docker build -t nodered:latest .
+
+4. Erstellen des Docker Containers:
+docker run -itd --name <name> --restart always -p 8080:8080 nodered:latest
+# Docker Container läuft und die Applikation wird automatisch gestartet bei jedem Start des Containers
