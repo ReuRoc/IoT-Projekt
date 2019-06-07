@@ -10,11 +10,11 @@
 #include <Adafruit_NeoPixel.h>
 
 // this client ID also selects the channel for the mqtt messages
-#define CLIENT_ID "23"
+#define CLIENT_ID "1"
 
-//DeviceAddress sensorAddress = { 0x28, 0xFF, 0x2F, 0x47, 0xA1, 0x16, 0x5, 0x9D };//sensor 1
+DeviceAddress sensorAddress = { 0x28, 0xFF, 0x2F, 0x47, 0xA1, 0x16, 0x5, 0x9D };//sensor 1
 //DeviceAddress sensorAddress = { 0x28, 0xFF, 0x7A, 0xE3, 0xA0, 0x16, 0x4, 0x88 }; //sensor 2
-DeviceAddress sensorAddress = { 0x28, 0xFF, 0x24, 0xE, 0xA1, 0x16, 0x3, 0x43 };//sensor 3
+//DeviceAddress sensorAddress = { 0x28, 0xFF, 0x24, 0xE, 0xA1, 0x16, 0x3, 0x43 };//sensor 3
 //DeviceAddress sensorAddress = { 0x28, 0xFF, 0x2B, 0x17, 0xA1, 0x16, 0x3, 0x87 };//sensor 4
 
 const char* ssid = "FI_WLAN";
@@ -237,6 +237,9 @@ void loop() {
   updateLeds();
   if(millis()>=now+1000){
     now = millis();
+    if (WiFi.status() != WL_CONNECTED) {
+      setup_wifi();
+    }
     if (!client.connected()) {
       reconnect();
     }
