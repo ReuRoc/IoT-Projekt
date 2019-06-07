@@ -23,5 +23,15 @@
         "green",
         "red",
         "orange"
-    ]
+    ],
+    "direction": {
+        "up": "0",
+        "down": "1",
+        "sideways": "2"
+    },
+    "state":{
+        "red_alert": 3,
+        "kowalski_alert": 4,
+        "passive_kowalski": 5
+    }
 }

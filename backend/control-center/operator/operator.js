@@ -28,9 +28,10 @@ process.on('message', function (packet) {
 });
 
 function logicTick() {
-  updateAllDeviceProperties();
   manageDeviceStates();
   cleanupDeviceQ();
+  updateAllDeviceProperties();
+  sendDeviceStateToProvider();
 }
 
 // initiate logic loop
@@ -47,7 +48,9 @@ function createDeviceData(deviceID) {
     // latest known direction | int
     direction_value: null,
     // latest known state | int
-    state: null
+    state: null,
+    // protects the state
+    state_lock: false
   };
   deviceData.Q = [];
   return deviceData;
@@ -97,7 +100,7 @@ function updateAllDeviceProperties() {
   });
 }
 
-// searches for the two latest entries for a given device,
+// searches for the two latest entries in the queue of a given device,
 // regarding its temperature and its direction
 function filterDevicePacketQ(device) {
   let mostRecentTemperatureEntry;
@@ -139,8 +142,17 @@ function manageDeviceStates() {
   });
 }
 
+// assigns the correct states to a given device
+// 1 on 1+n mapping currently so not too much to do
+// ¯\_(ツ)_/¯
 function updateDeviceState(device) {
-  
+  if (!state_lock) {
+    device.device.state = device.device.direction_value;
+  }
+  if(calcTemperatureDifference(device)){
+    device.device.state = config.state.kowalski_alert;
+    triggerKowalksiAlert(device);
+  }
 }
 
 // TODO: calculate the difference across all data points within the last
@@ -180,4 +192,22 @@ function cleanupDeviceQ(device) {
       return;
     }
   }
+}
+
+// updates every devices status to receive a passive kowalski alert
+// as current status, except for the given device (that triggered the alert)
+function triggerKowalksiAlert(device) {
+  deviceMasterList.forEach((entry)=>{
+    entry.device.state_lock = true;
+    if(entry.device.id != device.device.id){
+      entry.device.state = config.state.passive_kowalski;
+    }
+  });
+  setTimeout(disarmKowalksiAlert, 5000);
+}
+
+function disarmKowalksiAlert() {
+  deviceMasterList.forEach((entry)=>{
+    entry.device.state_lock = false;
+  });
 }
