@@ -22,6 +22,11 @@ Hinweis: Sollte der Upload fehlschlagen, dann überprüfen ob unter "Werkzeuge" 
 
 
 
+
+
+
+
+
 Anleitung für den Arduino Wifi Scan
 
 
@@ -134,6 +139,11 @@ In Arduino Konsole > Seriellen Monitor öffnen (rechter Button in der Konsole) >
 
 
 
+
+
+
+
+
 Einfache Kommunikation zwischen esp32 und MQTT Broker
 
 Benötigte Libaries:
@@ -141,12 +151,16 @@ Benötigte Libaries:
 <PubSubClient.h>
 <Wire.h>
 
+
+
 Nachdem auf einem Server der MQTT Broker eingerichtet wurde, kann der esp zum publishen bzw. subscriben von Daten genutzt werden.
 
 Folgende Daten müssen abgeändert werden:
 ssid = "REPLACE_WITH_YOUR_SSID"
 password = "REPLACE_WITH_YOUR_PASSWORD"
 mqtt_server = "YOUR_MQTT_BROKER_IP_ADDRESS"
+
+
 
 #################### Code Anfang ########################
 
@@ -278,6 +292,7 @@ void loop() {
 
 ##################### Code Ende #########################
 
+
 Danach sollten von dem MQTT-Broker Daten empfangen und gesendet werden.
 
 
@@ -285,7 +300,9 @@ Danach sollten von dem MQTT-Broker Daten empfangen und gesendet werden.
 
 
 #Anleitung für Docker Installation auf dem Raspberry Pi
+
 #Folge einfach der offiziellen Docker Installation:
+
 https://docs.docker.com/install/linux/docker-ce/debian/
 
 #Falls die Installation bei Schritt 4 fehlschlägt, prüfe bitte, dass die richtige Architektur ausgewählt ist.
@@ -308,15 +325,18 @@ mkdir /mosquitto/config
 mkdir /mosquitto/data
 mkdir /mosquitto/log
 
+
 2. Erstellen der mosquitto.conf file
 cd /mosquitto/config
 nano mosquitto.conf
+
 
 3. Füge folgenden code in die config file ein
 #Config file for mosquitto docker container
 persistence true
 persistence_location /mosquitto/data
 log_dest file /mosquitto/log/mosquitto.log
+
 
 4. Erstellen des Docker Containers:
 docker run -itd \
@@ -327,8 +347,10 @@ docker run -itd \
 -v mosquitto.comf:/mosquitto/config/mosquitto.conf \
 eclipse-mosquitto
 
+
 5. Überprüfen, ob der Docker Container läuft
 docker ps
+
 
 6. IP-Adresse des MQTT-Brokers herausfinden
 ip a
@@ -358,6 +380,7 @@ Nun kann der Editor unter http://localhost:1880/ aufgerufen werden.
 
 
 #Aufsetzen eines Docker Containers für das Node-RED Dashboard
+
 1. Erstellen eines eigenen Directories für die Daten
 mkdir /nodered/data
 
