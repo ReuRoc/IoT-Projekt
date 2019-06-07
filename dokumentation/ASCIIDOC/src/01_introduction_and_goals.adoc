@@ -9,7 +9,7 @@ Die westenlichen Anforderungen zur Umsetzung des Projektes sind:
 * Zeitplanung für die Projektumsetzung
 * Wissenserweiterung
 * komplexe Systeme verstehen und konfigurieren
-* Nachvollziehbarkeit durch Erstellung einer Architektdokumentation
+* Nachvollziehbarkeit durch Erstellung einer Architekturdokumentation
 * Zuverlässigkeit
 * Erstellung eines Prototypens
 ****
