@@ -19,7 +19,7 @@ Die westenlichen Anforderungen zur Umsetzung des Projektes sind:
 [role="arc42help"]
 ****
 In einem einwöchigen Praktikum besteht die Aufgabe darin, in Teamarbeit eine komplexe, 
-informationstechnische Aufgabenstellung zu analysieren, Lösungskonzepte zu entwickeln,diese zu dokumentieren und prototypisch umzusetzen. 
+informationstechnische Aufgabenstellung zu analysieren, Lösungskonzepte zu entwickeln, diese zu dokumentieren und prototypisch umzusetzen. 
 Dabei sollen die notwendigen Teilaufgaben eigenständig identifiziert werden und über mehrere Entwicklungsgruppen verteilt und 
 koordiniert werden. In diesem Praktikum sollen grundlegende Konzepte und Architekturmerkmale des Internet of Things benannt und
 deren Bedeutung für die Entwicklung eines komplexen IT-Systems dargestellt werden. 
