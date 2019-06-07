@@ -32,12 +32,13 @@ Dafür sollen Schnittstellen zwischen Systemkomponeten entworfen und umgesetzt w
 [role="arc42help"]
 ****
 .Inhalt
-Die Top-3 bis Top-5 der Qualitätsziele für die Architektur, deren Erfüllung oder Einhaltung den maßgeblichen Stakeholdern besonders wichtig sind.
-Gemeint sind hier wirklich Qualitätsziele, die nicht unbedingt mit den Zielen des Projekts übereinstimmen. Beachten Sie den Unterschied.
+Die Qualitätsziele für das einwöhige Praktikum lauten wie folgt:
 
-.Motivation
-Weil Qualitätsziele grundlegende Architekturentscheidungen oft maßgeblich beeinflussen, sollten Sie die für Ihre Stakeholder relevanten Qualitätsziele kennen, möglichst konkret und operationalisierbar.
+*Motivation der Teammitglieder
+*Qualifikationen der Projektleitung
+*Teamprozesse und Konflikte
+*Dokumentation
+*Image des Projekts 
+*fehlende Ressourcen
 
-.Form
-Tabellarische Darstellung der Qualitätsziele mit möglichst konkreten Szenarien, geordnet nach Prioritäten.
 ****
