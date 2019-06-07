@@ -1,0 +1,23 @@
+#Aufsetzen eines Docker Containers für das Node-RED Dashboard
+1. Erstellen eines eigenen Directories für die Daten
+mkdir /nodered/data
+
+2. Erstellen des Containers
+docker run -itd \
+--name nodered \
+--restart always \
+-p 1880:1880 \
+--link mosquitto:broker \
+-v /nodered/data \
+nodered/node-red-docker:rpi
+
+#Hinweis:
+#Falls der Node-Red Container auf einem Raspberry installiert werden soll, gibt es ein extra Image:
+#Anstatt nodered/node-red-docker -> nodered/node-red-docker:rpi nehmen
+
+3. Überprüfen, on der Docker Container läuft
+docker ps
+
+4. Dashboard aufrufen
+http://<IP-Adresse>:1880/ui
+
