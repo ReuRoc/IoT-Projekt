@@ -23,7 +23,7 @@ informationstechnische Aufgabenstellung zu analysieren, Lösungskonzepte zu entw
 Dabei sollen die notwendigen Teilaufgaben eigenständig identifiziert werden und über mehrere Entwicklungsgruppen verteilt und 
 koordiniert werden. In diesem Praktikum sollen grundlegende Konzepte und Architekturmerkmale des Internet of Things benannt und
 deren Bedeutung für die Entwicklung eines komplexen IT-Systems dargestellt werden. 
-Hierfür sollen verbreitete Technologien und Projekte für ein eifaches IoT-System ausgewählt werden.
+Hierfür sollen verbreitete Technologien und Projekte für ein einfaches IoT-System ausgewählt werden.
 Dafür sollen Schnittstellen zwischen Systemkomponeten entworfen und umgesetzt werden.
 ****
 
