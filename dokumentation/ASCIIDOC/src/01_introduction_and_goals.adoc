@@ -9,7 +9,7 @@ Die westenlichen Anforderungen zur Umsetzung des Projektes sind:
 * Zeitplanung für die Projektumsetzung
 * Wissenserweiterung
 * komplexe Systeme verstehen und konfigurieren
-* Nachvollziehbarkeit durch Erstellung einer Architektdokumentation
+* Nachvollziehbarkeit durch Erstellung einer Architekturdokumentation
 * Zuverlässigkeit
 * Erstellung eines Prototypens
 ****
@@ -19,11 +19,11 @@ Die westenlichen Anforderungen zur Umsetzung des Projektes sind:
 [role="arc42help"]
 ****
 In einem einwöchigen Praktikum besteht die Aufgabe darin, in Teamarbeit eine komplexe, 
-informationstechnische Aufgabenstellung zu analysieren, Lösungskonzepte zu entwickeln,diese zu dokumentieren und prototypisch umzusetzen. 
+informationstechnische Aufgabenstellung zu analysieren, Lösungskonzepte zu entwickeln, diese zu dokumentieren und prototypisch umzusetzen. 
 Dabei sollen die notwendigen Teilaufgaben eigenständig identifiziert werden und über mehrere Entwicklungsgruppen verteilt und 
 koordiniert werden. In diesem Praktikum sollen grundlegende Konzepte und Architekturmerkmale des Internet of Things benannt und
 deren Bedeutung für die Entwicklung eines komplexen IT-Systems dargestellt werden. 
-Hierfür sollen verbreitete Technologien und Projekte für ein eifaches IoT-System ausgewählt werden.
+Hierfür sollen verbreitete Technologien und Projekte für ein einfaches IoT-System ausgewählt werden.
 Dafür sollen Schnittstellen zwischen Systemkomponeten entworfen und umgesetzt werden.
 ****
 
@@ -31,13 +31,14 @@ Dafür sollen Schnittstellen zwischen Systemkomponeten entworfen und umgesetzt w
 
 [role="arc42help"]
 ****
-.Inhalt
-Die Top-3 bis Top-5 der Qualitätsziele für die Architektur, deren Erfüllung oder Einhaltung den maßgeblichen Stakeholdern besonders wichtig sind.
-Gemeint sind hier wirklich Qualitätsziele, die nicht unbedingt mit den Zielen des Projekts übereinstimmen. Beachten Sie den Unterschied.
 
-.Motivation
-Weil Qualitätsziele grundlegende Architekturentscheidungen oft maßgeblich beeinflussen, sollten Sie die für Ihre Stakeholder relevanten Qualitätsziele kennen, möglichst konkret und operationalisierbar.
+Die Qualitätsziele für das einwöhige Praktikum lauten wie folgt:
 
-.Form
-Tabellarische Darstellung der Qualitätsziele mit möglichst konkreten Szenarien, geordnet nach Prioritäten.
+* Motivation der Teammitglieder
+* Qualifikationen der Projektleitung
+* Teamprozesse und Konflikte
+* Dokumentation
+* Image des Projekts 
+* fehlende Ressourcen
+
 ****
