@@ -34,11 +34,11 @@ Dafür sollen Schnittstellen zwischen Systemkomponeten entworfen und umgesetzt w
 .Inhalt
 Die Qualitätsziele für das einwöhige Praktikum lauten wie folgt:
 
-*Motivation der Teammitglieder
-*Qualifikationen der Projektleitung
-*Teamprozesse und Konflikte
-*Dokumentation
-*Image des Projekts 
-*fehlende Ressourcen
+* Motivation der Teammitglieder
+* Qualifikationen der Projektleitung
+* Teamprozesse und Konflikte
+* Dokumentation
+* Image des Projekts 
+* fehlende Ressourcen
 
 ****
